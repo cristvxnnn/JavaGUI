@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package vista;
 
-/**
- *
- * @author crstc
- */
+import modelo.LogicaPlusPlus;
+
 public class VistaGUI extends javax.swing.JFrame {
+
+    private LogicaPlusPlus logica;
+    private double primerNum;
+    private String operacion;
 
     /**
      * Creates new form VistaGUIA
      */
     public VistaGUI() {
         initComponents();
+        logica = new LogicaPlusPlus();
     }
 
     /**
@@ -29,6 +28,7 @@ public class VistaGUI extends javax.swing.JFrame {
         num1 = new javax.swing.JTextField();
         Numero2 = new javax.swing.JTextField();
         addition = new javax.swing.JButton();
+        Resultado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -48,6 +48,8 @@ public class VistaGUI extends javax.swing.JFrame {
             }
         });
 
+        Resultado.setText("El resultado es:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -55,10 +57,13 @@ public class VistaGUI extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Numero2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(num1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
-                .addComponent(addition)
+                    .addComponent(Resultado)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Numero2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(num1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70)
+                        .addComponent(addition)))
                 .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -73,7 +78,9 @@ public class VistaGUI extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addComponent(addition)))
-                .addContainerGap(181, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Resultado)
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,10 +88,24 @@ public class VistaGUI extends javax.swing.JFrame {
 
     private void num1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_num1ActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_num1ActionPerformed
 
     private void additionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_additionActionPerformed
         // TODO add your handling code here:
+        //1) Validar que ninguna de las 2 cajas este vacia
+        if(!num1.getText().isEmpty()&& !Numero2.getText().isEmpty()){
+         //2) Capturar los datos y convertirlos a double
+         double Numero1 = Double.parseDouble(num1.getText());
+         double Numer2 = Double.parseDouble(Numero2.getText());
+        //3) Llamamos al backend- modelo
+        double respuesta = logica.sumar(Numero1, Numer2);
+        //4) mostramos el resultado      
+        Resultado.setText("el resultado es: "+respuesta);
+        }
+
+
+
     }//GEN-LAST:event_additionActionPerformed
 
     /**
@@ -125,6 +146,7 @@ public class VistaGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Numero2;
+    private javax.swing.JLabel Resultado;
     private javax.swing.JButton addition;
     private javax.swing.JTextField num1;
     // End of variables declaration//GEN-END:variables
